@@ -14,10 +14,7 @@ def calc_savings(annual_salary, savings_perc):
     for month in range(1,months+1):
         current_savings += current_savings*r/12
         current_savings += (annual_salary/12) * portion_saved 
-
-        if month % 6 == 0:
-            annual_salary = annual_salary + (annual_salary* semi_annual_raise)
-    
+        if month % 6 == 0: annual_salary = annual_salary + (annual_salary* semi_annual_raise)
     return current_savings
 
 
@@ -32,17 +29,13 @@ def best_savings_rate(salary):
 
     # 4.The cost of the house that you are saving for is $1M. You are now going to try to find the best rate of savings to achieve a down payment on a $1M house in 36 months. Since hitting this exactly is a challenge, we simply want your savings to be within $100 of the required down payment. 
     total_cost = 1000000
-
     down_payment = total_cost * portion_down_payment
-
     annual_salary = salary
-
     steps_bisect = 0
 
     # first check upper bound to see if saving at 100%, the down payment is feasible
-    if salary < 66164:
-        print("We cannot meet down payment in three years.")
-        return  
+    if salary < 66164: print("We cannot meet down payment in three years."); return  
+
     down_plus = down_payment + 100
     down_less = down_payment - 100
     upper_bound = 1
@@ -51,12 +44,9 @@ def best_savings_rate(salary):
     current_savings = 0
     searching = True
     while searching:
-        if current_savings < down_less:
-            lower_bound = savings_perc
-        elif current_savings > down_plus:
-            upper_bound = savings_perc
-        else:
-            searching = False
+        if current_savings < down_less: lower_bound = savings_perc
+        elif current_savings > down_plus: upper_bound = savings_perc
+        else: searching = False
         savings_perc = round(lower_bound + (upper_bound - lower_bound)/2,4)
         current_savings = calc_savings(annual_salary, savings_perc)
         steps_bisect += 1
