@@ -12,6 +12,7 @@
 import random
 import string
 
+#remember to be in ps2 folder when running code
 WORDLIST_FILENAME = "words.txt"
 
 
