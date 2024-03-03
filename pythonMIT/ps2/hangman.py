@@ -50,7 +50,8 @@ def choose_word(wordlist):
 # Load the list of words into the variable wordlist
 # so that it can be accessed from anywhere in the program
 wordlist = load_words()
-
+secret_word = "dumbbell"
+letter_guessed = ['a','b','u','m','e','l']
 
 def is_word_guessed(secret_word, letters_guessed):
     '''
@@ -61,10 +62,24 @@ def is_word_guessed(secret_word, letters_guessed):
     returns: boolean, True if all the letters of secret_word are in letters_guessed;
       False otherwise
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
 
+    secret_letters = []
+    secret_letters.extend(secret_word)
+    print(secret_letters)
+    unique_secret = unique(secret_letters)
+    for letter in letters_guessed:
+      if letter in unique_secret:
+        unique_secret.remove(letter)
+    if len(unique_secret)>0: return False
+    else: return True
 
+def unique(list):
+    unique = []
+    for elem in list:
+      if elem not in unique:
+        unique.append(elem)
+    print(unique)
+    return unique
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -74,9 +89,12 @@ def get_guessed_word(secret_word, letters_guessed):
       which letters in secret_word have been guessed so far.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    guessed_word_list = ["_"] * len(secret_word)
+    for i, letter in enumerate(secret_word):
+      if letter in letter_guessed:
+        guessed_word_list[i] = letter
 
-
+    return " ".join(guessed_word_list)
 
 def get_available_letters(letters_guessed):
     '''
@@ -85,7 +103,15 @@ def get_available_letters(letters_guessed):
       yet been guessed.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    avail_letters = []
+    avail_letters.extend(string.ascii_lowercase)
+    for letter in letter_guessed:
+      if letter in avail_letters:
+        avail_letters.remove(letter)
+    return ' '.join(avail_letters)
+
+print(get_available_letters(letter_guessed))
+    
     
     
 
@@ -196,14 +222,14 @@ def hangman_with_hints(secret_word):
 # Hint: You might want to pick your own secret_word while you're testing.
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # pass
 
     # To test part 2, comment out the pass line above and
     # uncomment the following two lines.
     
-    secret_word = choose_word(wordlist)
-    hangman(secret_word)
+    # secret_word = choose_word(wordlist)
+    # hangman(secret_word)
 
 ###############
     
