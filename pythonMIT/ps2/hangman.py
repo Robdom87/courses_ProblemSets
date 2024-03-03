@@ -81,10 +81,6 @@ def unique(list):
     print(unique)
     return unique
 
-
-
-
-
 def get_guessed_word(secret_word, letters_guessed):
     '''
     secret_word: string, the word the user is guessing
@@ -100,8 +96,6 @@ def get_guessed_word(secret_word, letters_guessed):
 
     return " ".join(guessed_word_list)
 
-print(get_guessed_word(secret_word,letter_guessed))
-
 def get_available_letters(letters_guessed):
     '''
     letters_guessed: list (of letters), which letters have been guessed so far
@@ -109,7 +103,15 @@ def get_available_letters(letters_guessed):
       yet been guessed.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    avail_letters = []
+    avail_letters.extend(string.ascii_lowercase)
+    for letter in letter_guessed:
+      if letter in avail_letters:
+        avail_letters.remove(letter)
+    return ' '.join(avail_letters)
+
+print(get_available_letters(letter_guessed))
+    
     
     
 
