@@ -235,9 +235,23 @@ def match_with_gaps(my_word, other_word):
         False otherwise: 
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    rem_spaces = my_word.replace(" ", "")
+    my_list = []
+    other_list = []
+    my_list.extend(rem_spaces)
+    other_list.extend(other_word)
+    if len(rem_spaces) != len(other_word):
+      return False
+    for i, letter in enumerate(my_list):
+      if letter != "_" and letter != other_list[i]:
+        # print('hello', letter, i)
+        return False
+    return True
 
+# word = "d _ _ b _ l l"
+# word2 = "dumpell"
 
+print(match_with_gaps(word, word2))
 
 def show_possible_matches(my_word):
     '''
