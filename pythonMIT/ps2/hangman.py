@@ -249,10 +249,10 @@ def match_with_gaps(my_word, other_word):
         return False
     return True
 
-word = "d _ _ b _ l l"
-word2 = "dumpell"
 
-print(match_with_gaps(word, word2))
+# word2 = "dumpell"
+
+# print(match_with_gaps(word, word2))
 
 def show_possible_matches(my_word):
     '''
@@ -265,7 +265,18 @@ def show_possible_matches(my_word):
 
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    possible_matches = []
+    for word in wordlist:
+      if match_with_gaps(my_word,word):
+        possible_matches.append(word)
+    if len(possible_matches) > 0:
+      print(' '.join(possible_matches))
+    else:
+      print("No Matches Found")
+
+word = "d _ _ r"
+show_possible_matches(word)
+    
 
 
 
