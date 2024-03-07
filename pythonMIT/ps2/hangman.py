@@ -233,6 +233,7 @@ def match_with_gaps(my_word, other_word):
         corresponding letters of other_word, or the letter is the special symbol
         _ , and my_word and other_word are of the same length;
         False otherwise: 
+
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     rem_spaces = my_word.replace(" ", "")
@@ -248,8 +249,8 @@ def match_with_gaps(my_word, other_word):
         return False
     return True
 
-# word = "d _ _ b _ l l"
-# word2 = "dumpell"
+word = "d _ _ b _ l l"
+word2 = "dumpell"
 
 print(match_with_gaps(word, word2))
 
