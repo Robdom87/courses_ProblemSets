@@ -91,8 +91,22 @@ def get_word_score(word, n):
     n: int >= 0
     returns: int >= 0
     """
-    
-    pass  # TO DO... Remove this line when you implement this function
+    # TO DO... Remove this line when you implement this function
+    if word == "":
+        return 0
+    lower = word.lower()
+    word_list = []
+    word_list.extend(lower)
+    #first calculation
+    first_comp = 0
+    for letter in word_list:
+        if letter != "*":
+            first_comp += SCRABBLE_LETTER_VALUES[letter]
+    #second calculations
+    wordlen = len(word)
+    second_comp = max(7*wordlen - 3*(n-wordlen),1)
+
+    return first_comp * second_comp
 
 #
 # Make sure you understand how this function works and what it does!
