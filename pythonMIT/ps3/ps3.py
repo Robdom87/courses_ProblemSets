@@ -150,7 +150,8 @@ def deal_hand(n):
     hand={}
     num_vowels = int(math.ceil(n / 3))
 
-    for i in range(num_vowels):
+    hand["*"] = hand.get("*", 0) + 1
+    for i in range(1,num_vowels):
         x = random.choice(VOWELS)
         hand[x] = hand.get(x, 0) + 1
     
@@ -213,10 +214,21 @@ def is_valid_word(word, hand, word_list):
     # TO DO... Remove this line when you implement this function
     # check if word in word_list
     lower_word = word.lower()
-    if lower_word in word_list:
-        # check if word is in hand
-        letters = []
-        letters.extend(lower_word)
+    letters = []
+    letters.extend(lower_word)
+    ast_index = lower_word.find("*")
+    if ast_index > -1:
+        vowels_list = []
+        vowels_list.extend(VOWELS)
+        valid_ast = False
+        for vowel in vowels_list:
+            new_word = word.replace("*", vowel)
+            if new_word in word_list:
+                valid_ast = True
+        if not valid_ast:
+            return valid_ast
+    elif lower_word in word_list:
+        # check if word is in hand 
         hand_copy = hand.copy()
         hand_keys = hand.keys()
         for letter in letters:
