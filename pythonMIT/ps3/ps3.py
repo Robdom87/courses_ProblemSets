@@ -181,8 +181,19 @@ def update_hand(hand, word):
     hand: dictionary (string -> int)    
     returns: dictionary (string -> int)
     """
+    letters = []
 
-    pass  # TO DO... Remove this line when you implement this function
+    letters.extend(word.lower())
+    hand_copy = hand.copy()
+    hand_keys = hand.keys()
+    for letter in letters:
+        if letter in hand_keys:
+            hand_copy[letter] = max(hand_copy[letter]-1,0)
+    return hand_copy
+        
+
+
+    # TO DO... Remove this line when you implement this function
 
 #
 # Problem #3: Test word validity
