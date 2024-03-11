@@ -161,7 +161,6 @@ def deal_hand(n):
     
     return hand
 
-#
 # Problem #2: Update a hand by removing letters
 #
 def update_hand(hand, word):
@@ -192,11 +191,6 @@ def update_hand(hand, word):
             hand_copy[letter] = max(hand_copy[letter]-1,0)
     return hand_copy
         
-
-
-    # TO DO... Remove this line when you implement this function
-
-#
 # Problem #3: Test word validity
 #
 def is_valid_word(word, hand, word_list):
@@ -244,9 +238,6 @@ def is_valid_word(word, hand, word_list):
         return False
     return True
 
-
-
-#
 # Problem #5: Playing a hand
 #
 def calculate_handlen(hand):
@@ -372,7 +363,34 @@ def substitute_hand(hand, letter):
     returns: dictionary (string -> int)
     """
     
-    pass  # TO DO... Remove this line when you implement this function
+    # if letter in hand
+    if letter in hand.keys():
+    # set tuple with (new letter, old letter count)
+        new_letter = ""
+    # make a copy of hand
+        hand_copy = hand.copy()
+    #   if letter a vowel
+        if letter in VOWELS:
+    #       run random generation until for vowels letter generated is not the same as the letter selected or is not already in hand
+            while new_letter == "":
+    #       set new letter to random generated
+                x = random.choice(VOWELS)
+                if x not in hand.keys() or x != letter:
+                    new_letter = x
+    #   if letter a consonant  
+        elif letter in CONSONANTS:
+    #       run random generation for consontant until letter generated is not the same as the letter selected or is not already in hand 
+            while new_letter == "":
+    #       set new letter to random generated
+                x = random.choice(CONSONANTS)
+                if x not in hand.keys() or x != letter:
+                    new_letter = x
+        hand_copy[new_letter] = hand[letter]
+        del hand_copy[letter]
+        return hand_copy
+    # delete old key pair old letter in copy of hand
+    # new new key value pair with new letter using tuple def previously
+    # return copy of hand with new letter
        
     
 def play_game(word_list):
@@ -405,6 +423,19 @@ def play_game(word_list):
 
     word_list: list of lowercase strings
     """
+    num_hands = input("Enter total number of hands: ")
+    game_score = 0
+    for i in range(num_hands):
+        hand = deal_hand(HAND_SIZE)
+        subs_choice = input("Would you like to substitute a letter? ").lower()
+        if subs_choice == "yes" or subs_choice == "y":
+            subs_letter = input("Which letter would you like to replace: ").lower()
+            subs_letter(hand, subs_letter)
+
+
+        print("----------")
+        input("Would you like to replay the hand? ")
+    print(f"Total score over all hands: {game_score}")
     
     print("play_game not implemented.") # TO DO... Remove this line when you implement this function
     
@@ -424,7 +455,7 @@ if __name__ == '__main__':
     pass
     word_list = load_words()
     # word = "zen"
-    hand = {'c': 1, 'o': 1, '*': 1, 'w': 1, 's': 1, 'z': 1, 'y': 2}
+    # hand = {'c': 1, 'o': 1, '*': 1, 'w': 1, 's': 1, 'z': 1, 'y': 2}
     # is_valid_word(word, hand, word_list)
-    play_hand(hand, word_list)
+    # play_hand(hand, word_list)
     play_game(word_list)
