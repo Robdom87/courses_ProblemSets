@@ -215,9 +215,10 @@ def is_valid_word(word, hand, word_list):
     # check if word in word_list
     lower_word = word.lower()
     letters = []
-    letters.extend(lower_word)
+    letters.extend(lower_word) # [z,e,n]
     ast_index = lower_word.find("*")
-    if ast_index > -1:
+    # should only run when no asterix
+    if ast_index != -1:
         vowels_list = []
         vowels_list.extend(VOWELS)
         valid_ast = False
@@ -237,7 +238,10 @@ def is_valid_word(word, hand, word_list):
                 if hand_copy[letter] < 0:
                     return False
             else:
+                print('Hello')
                 return False
+    else:
+        return False
     return True
 
 
@@ -253,7 +257,12 @@ def calculate_handlen(hand):
     returns: integer
     """
     
-    pass  # TO DO... Remove this line when you implement this function
+    # TO DO... Remove this line when you implement this function
+    hand_length = 0
+    for key in hand.keys():
+        hand_length += hand[key]
+    return hand_length
+
 
 def play_hand(hand, word_list):
 
@@ -288,37 +297,48 @@ def play_hand(hand, word_list):
     
     # BEGIN PSEUDOCODE <-- Remove this comment when you implement this function
     # Keep track of the total score
+    total_score = 0
     
     # As long as there are still letters left in the hand:
-    
+    while calculate_handlen(hand) > 0:
         # Display the hand
+        display_hand(hand)
         
         # Ask user for input
+        user_inp = input('Enter word, or "!!" to indicate that you are finished: ')
         
         # If the input is two exclamation points:
-        
+        if user_inp == "!!" or calculate_handlen(hand) == 0:
             # End the game (break out of the loop)
-
-            
+            break
+        else:    
         # Otherwise (the input is not two exclamation points):
-
             # If the word is valid:
-
+            word = ""
+            if user_inp != None:
+                word = user_inp
+            if is_valid_word(word, hand, word_list):
                 # Tell the user how many points the word earned,
+                score = get_word_score(word, calculate_handlen(hand))
                 # and the updated total score
+                total_score += score
+                print(f'"{word}" earned {score} points. Total: {total_score} points')
 
             # Otherwise (the word is not valid):
+            else:
                 # Reject invalid word (print a message)
+                print("That is not a valid word. Please choose another word.")
                 
             # update the user's hand by removing the letters of their inputted word
+            hand = update_hand(hand, word)
             
 
     # Game is over (user entered '!!' or ran out of letters),
     # so tell user the total score
+    print(f"Total score: {total_score} points")
 
     # Return the total score as result of function
-
-
+    return total_score
 
 #
 # Problem #6: Playing a game
@@ -390,11 +410,21 @@ def play_game(word_list):
     
 
 
+# word_list = load_words()
+# word = "zen"
+# hand = {'c': 1, 'o': 1, '*': 1, 'w': 1, 's': 1, 'z': 1, 'y': 2}
+# print(is_valid_word(word, hand, word_list))
+
 #
 # Build data structures used for entire session and play game
 # Do not remove the "if __name__ == '__main__':" line - this code is executed
 # when the program is run directly, instead of through an import statement
 #
 if __name__ == '__main__':
+    pass
     word_list = load_words()
+    # word = "zen"
+    hand = {'c': 1, 'o': 1, '*': 1, 'w': 1, 's': 1, 'z': 1, 'y': 2}
+    # is_valid_word(word, hand, word_list)
+    play_hand(hand, word_list)
     play_game(word_list)
