@@ -301,6 +301,7 @@ def play_hand(hand, word_list):
         # If the input is two exclamation points:
         if user_inp == "!!" or calculate_handlen(hand) == 0:
             # End the game (break out of the loop)
+            print("----------")
             break
         else:    
         # Otherwise (the input is not two exclamation points):
@@ -423,20 +424,22 @@ def play_game(word_list):
 
     word_list: list of lowercase strings
     """
-    num_hands = input("Enter total number of hands: ")
+    num_hands = int(input("Enter total number of hands: "))
     game_score = 0
     for i in range(num_hands):
         hand = deal_hand(HAND_SIZE)
+        display_hand(hand)
         subs_choice = input("Would you like to substitute a letter? ").lower()
         if subs_choice == "yes" or subs_choice == "y":
             subs_letter = input("Which letter would you like to replace: ").lower()
-            hand = subs_letter(hand, subs_letter)
+            hand = substitute_hand(hand, subs_letter)
         hand_score = play_hand(hand, word_list)
         print("----------")
         replay_choice = input("Would you like to replay the hand? ")
         if replay_choice == "yes" or replay_choice == "y":
             hand_score = play_hand(hand, word_list)
         game_score += hand_score
+        
     print("----------")
     print(f"Total score over all hands: {game_score}")
     
