@@ -430,14 +430,17 @@ def play_game(word_list):
         subs_choice = input("Would you like to substitute a letter? ").lower()
         if subs_choice == "yes" or subs_choice == "y":
             subs_letter = input("Which letter would you like to replace: ").lower()
-            subs_letter(hand, subs_letter)
-
-
+            hand = subs_letter(hand, subs_letter)
+        hand_score = play_hand(hand, word_list)
         print("----------")
-        input("Would you like to replay the hand? ")
+        replay_choice = input("Would you like to replay the hand? ")
+        if replay_choice == "yes" or replay_choice == "y":
+            hand_score = play_hand(hand, word_list)
+        game_score += hand_score
+    print("----------")
     print(f"Total score over all hands: {game_score}")
     
-    print("play_game not implemented.") # TO DO... Remove this line when you implement this function
+    # print("play_game not implemented.") # TO DO... Remove this line when you implement this function
     
 
 
