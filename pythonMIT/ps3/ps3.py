@@ -460,8 +460,4 @@ def play_game(word_list):
 if __name__ == '__main__':
     pass
     word_list = load_words()
-    # word = "zen"
-    # hand = {'c': 1, 'o': 1, '*': 1, 'w': 1, 's': 1, 'z': 1, 'y': 2}
-    # is_valid_word(word, hand, word_list)
-    # play_hand(hand, word_list)
     play_game(word_list)
