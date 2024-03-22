@@ -71,6 +71,8 @@ class SubMessage(object):
             self.valid_words (list, determined using helper function load_words)
         '''
         self.message_text = text
+        self.valid_words = load_words(WORDLIST_FILENAME)
+
     
     def get_message_text(self):
         '''
@@ -87,7 +89,7 @@ class SubMessage(object):
         
         Returns: a COPY of self.valid_words
         '''
-        pass #delete this line and replace with your code here
+        return self.valid_words
                 
     def build_transpose_dict(self, vowels_permutation):
         '''
