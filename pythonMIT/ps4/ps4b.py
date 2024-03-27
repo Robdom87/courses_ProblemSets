@@ -79,7 +79,8 @@ class Message(object):
         
         Returns: self.message_text
         '''
-        pass #delete this line and replace with your code here
+        return self.message_text
+
 
     def get_valid_words(self):
         '''
