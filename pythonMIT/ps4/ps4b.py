@@ -141,6 +141,7 @@ class PlaintextMessage(Message):
         '''
         self.message_text = text
         self.valid_words = load_words(WORDLIST_FILENAME)
+        self.shift = shift
 
     def get_shift(self):
         '''
