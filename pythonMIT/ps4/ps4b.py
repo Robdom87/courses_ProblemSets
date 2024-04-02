@@ -149,7 +149,8 @@ class PlaintextMessage(Message):
         
         Returns: self.shift
         '''
-        pass #delete this line and replace with your code here
+        # pass #delete this line and replace with your code here
+        return self.shift
 
     def get_encryption_dict(self):
         '''
