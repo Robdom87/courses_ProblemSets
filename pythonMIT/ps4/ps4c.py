@@ -89,7 +89,7 @@ class SubMessage(object):
         
         Returns: a COPY of self.valid_words
         '''
-        return self.valid_words
+        return self.valid_words.copy()
                 
     def build_transpose_dict(self, vowels_permutation):
         '''
