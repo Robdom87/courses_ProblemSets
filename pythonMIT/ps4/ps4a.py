@@ -36,5 +36,5 @@ if __name__ == '__main__':
 #    to be three characters or fewer as you will have n! permutations for a 
 #    sequence of length n)
 
-    pass #delete this line and replace with your code here
+    # pass #delete this line and replace with your code here
 
