@@ -90,7 +90,7 @@ class Message(object):
         Returns: a COPY of self.valid_words
         '''
         # pass #delete this line and replace with your code 
-        return self.valid_words
+        return self.valid_words.copy()
         
 
     def build_shift_dict(self, shift):
@@ -107,8 +107,21 @@ class Message(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        pass #delete this line and replace with your code here
-
+        lower_arr = []
+        upper_arr = []
+        lower_arr[:] = string.ascii_lowercase
+        upper_arr[:] = string.ascii_uppercase  
+        shift_dict = {}
+        def add_2_dict(arr, shift):
+            for i, let in enumerate(arr):
+                new_idx = shift + i
+                if shift + i >= 26:
+                    new_idx = (shift + i) % 26
+                shift_dict[let]=arr[new_idx]
+        add_2_dict(lower_arr, shift)
+        add_2_dict(upper_arr, shift)
+        return shift_dict
+        
     def apply_shift(self, shift):
         '''
         Applies the Caesar Cipher to self.message_text with the input shift.
@@ -139,8 +152,7 @@ class PlaintextMessage(Message):
             self.message_text_encrypted (string, created using shift)
 
         '''
-        self.message_text = text
-        self.valid_words = load_words(WORDLIST_FILENAME)
+        Message.__init__(self,text)
         self.shift = shift
 
     def get_shift(self):
@@ -149,7 +161,6 @@ class PlaintextMessage(Message):
         
         Returns: self.shift
         '''
-        # pass #delete this line and replace with your code here
         return self.shift
 
     def get_encryption_dict(self):
@@ -179,6 +190,10 @@ class PlaintextMessage(Message):
         Returns: nothing
         '''
         pass #delete this line and replace with your code here
+    def __str__(self):
+        return f"text: {self.message_text}, shift: {self.shift}"
+        # return str(self.build_shift_dict)
+        
 
 
 class CiphertextMessage(Message):
@@ -214,8 +229,9 @@ class CiphertextMessage(Message):
 
 if __name__ == '__main__':
 
-#    #Example test case (PlaintextMessage)
-#    plaintext = PlaintextMessage('hello', 2)
+   #Example test case (PlaintextMessage)
+    plaintext = PlaintextMessage('hello', 2)
+    print(plaintext.build_shift_dict(2))
 #    print('Expected Output: jgnnq')
 #    print('Actual Output:', plaintext.get_message_text_encrypted())
 #
@@ -228,4 +244,4 @@ if __name__ == '__main__':
 
     #TODO: best shift value and unencrypted story 
     
-    # pass #delete this line and replace with your code here
+    pass #delete this line and replace with your code here

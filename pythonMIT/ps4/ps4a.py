@@ -26,17 +26,19 @@ def get_permutations(sequence):
     if len(sequence) == 1: return sequence
     perms = []
     #return perm list of all but first letter
-    first_let = sequence[0]
     rest_perms = get_permutations(sequence[1::])
     # for every permutation in the rest permutations list
     for rest_perm in rest_perms:
-        #for every letter in the current rest permutations
+        #for every spce before, between, or after each letter in the current permutation
         for i in range(len(sequence)+1):
             permArr = []
+            #split string into array
             permArr[:]=rest_perm
-            permArr[i:i] = first_let
-            # perm=''
+            # at index i add the first letter of sequence
+            permArr[i:i] = sequence[0]
+            # convert list into string
             perm = "".join(permArr)
+            #add permutation to permutation list if not already present in list
             if perm not in perms:
                 perms.append(perm)
     return perms
