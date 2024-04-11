@@ -134,7 +134,14 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        pass #delete this line and replace with your code here
+        shift_dict = self.build_shift_dict(shift)
+        messageArr = []
+        messageArr[:] = self.get_message_text()
+        for i, char in enumerate(messageArr):
+            if char.isalpha():
+                messageArr[i] = shift_dict[messageArr[i]]
+        return "".join(messageArr)
+
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
@@ -231,7 +238,7 @@ if __name__ == '__main__':
 
    #Example test case (PlaintextMessage)
     plaintext = PlaintextMessage('hello', 2)
-    print(plaintext.build_shift_dict(2))
+    print(plaintext.apply_shift(2))
 #    print('Expected Output: jgnnq')
 #    print('Actual Output:', plaintext.get_message_text_encrypted())
 #
