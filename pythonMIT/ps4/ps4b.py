@@ -114,9 +114,9 @@ class Message(object):
         shift_dict = {}
         def add_2_dict(arr, shift):
             for i, let in enumerate(arr):
-                new_idx = shift + i
-                if shift + i >= 26:
-                    new_idx = (shift + i) % 26
+                new_idx = int(shift) + i
+                if new_idx >= 26:
+                    new_idx = new_idx % 26
                 shift_dict[let]=arr[new_idx]
         add_2_dict(lower_arr, shift)
         add_2_dict(upper_arr, shift)
@@ -176,7 +176,7 @@ class PlaintextMessage(Message):
         
         Returns: a COPY of self.encryption_dict
         '''
-        return self.build_shift_dict(self.get_shift).copy()
+        return self.build_shift_dict(self.get_shift()).copy()
 
     def get_message_text_encrypted(self):
         '''
@@ -184,7 +184,7 @@ class PlaintextMessage(Message):
         
         Returns: self.message_text_encrypted
         '''
-        return self.apply_shift(self.get_shift)
+        return self.apply_shift(self.get_shift())
 
     #setter function need to figure out how to use
     def change_shift(self, shift):
@@ -218,7 +218,7 @@ class CiphertextMessage(Message):
             self.valid_words (list, determined using helper function load_words)
         '''
         # pass #delete this line and replace with your code here
-        self.text = text
+        Message.__init__(self,text)
     def decrypt_message(self):
         '''
         Decrypt self.message_text by trying every possible shift value
@@ -235,20 +235,47 @@ class CiphertextMessage(Message):
         Returns: a tuple of the best shift value used to decrypt the message
         and the decrypted message text using that shift value
         '''
-        pass #delete this line and replace with your code here
+        # variable to hold max amount of valid words and shift
+        max_words = 0
+        max_shift = 0
+        max_message = ""
+        # for each shift possibility
+        for i in range(26):
+            #apply shift to find "decipered mssage"
+            curr_message = self.apply_shift(i)
+            # varaible to hold current amount of valid words
+            curr_words = 0
+            # break decipered message str into an array of 
+            curr_words_arr = curr_message.split(" ")
+            # for each word in dec message arr, check if is word
+            for word in curr_words_arr:
+                #   if so add to variable
+                if is_word(self.valid_words, word):
+                    curr_words += 1
+            #check if total amount of current valid words is more than max
+            if curr_words > max_words:
+                #   if so subsstitu max amount with new max and save new message and shift
+                max_words = curr_words
+                max_shift = i
+                max_message = curr_message 
+        # return shift and message for message with largest amount of valid words
+        return (max_shift,max_message)
+
+
+
 
 if __name__ == '__main__':
 
    #Example test case (PlaintextMessage)
-    plaintext = PlaintextMessage('hello', 2)
-    print(plaintext.apply_shift(2))
-#    print('Expected Output: jgnnq')
-#    print('Actual Output:', plaintext.get_message_text_encrypted())
+    # plaintext = PlaintextMessage('hello', 2)
+    # print('Expected Output: jgnnq')
+    # print('Actual Output:', plaintext.get_message_text_encrypted())
 #
 #    #Example test case (CiphertextMessage)
-#    ciphertext = CiphertextMessage('jgnnq')
-#    print('Expected Output:', (24, 'hello'))
-#    print('Actual Output:', ciphertext.decrypt_message())
+    story_str = get_story_string()
+    ciphertext = CiphertextMessage(story_str)
+    # print('Expected Output:', (24, 'hello'))
+    print('Actual Output:', ciphertext.decrypt_message())
 
     #TODO: WRITE YOUR TEST CASES HERE
 
