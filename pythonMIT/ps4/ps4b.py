@@ -186,6 +186,7 @@ class PlaintextMessage(Message):
         '''
         return self.apply_shift(self.get_shift)
 
+    #setter function need to figure out how to use
     def change_shift(self, shift):
         '''
         Changes self.shift of the PlaintextMessage and updates other 
@@ -196,7 +197,9 @@ class PlaintextMessage(Message):
 
         Returns: nothing
         '''
-        pass #delete this line and replace with your code here
+        self.shift = shift
+        self.get_message_text_encrypted()
+
     def __str__(self):
         return f"text: {self.message_text}, shift: {self.shift}"
         # return str(self.build_shift_dict)
