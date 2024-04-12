@@ -110,8 +110,21 @@ class SubMessage(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        
-        pass #delete this line and replace with your code here
+        lower_arr = []
+        upper_arr = []
+        lower_arr[:] = string.ascii_lowercase
+        upper_arr[:] = string.ascii_uppercase  
+        shift = 0
+        shift_dict = {}
+        def add_2_dict(arr, shift):
+            for i, let in enumerate(arr):
+                new_idx = int(shift) + i
+                if new_idx >= 26:
+                    new_idx = new_idx % 26
+                shift_dict[let]=arr[new_idx]
+        add_2_dict(lower_arr, shift)
+        add_2_dict(upper_arr, shift)
+        return shift_dict
     
     def apply_transpose(self, transpose_dict):
         '''
