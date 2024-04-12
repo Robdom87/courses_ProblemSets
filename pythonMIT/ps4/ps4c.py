@@ -133,7 +133,7 @@ class SubMessage(object):
                 # pull current vowel from permutated vowel array
                 perm_vow = vow_p_arr[i]
                 # if base vowel array is in upper case, also make perm_vow array into upper case
-                if vow.isUpper():
+                if vow.isupper():
                     perm_vow = perm_vow.upper()
                 # add key pair for base vowel arr and perm vowel arr
                 tran_dict[vow]= perm_vow
@@ -149,8 +149,12 @@ class SubMessage(object):
         Returns: an encrypted version of the message text, based 
         on the dictionary
         '''
-        
-        pass #delete this line and replace with your code here
+        messageArr = []
+        messageArr[:] = self.get_message_text()
+        for i, char in enumerate(messageArr):
+            if char.isalpha():
+                messageArr[i] = transpose_dict[messageArr[i]]
+        return "".join(messageArr)
         
 class EncryptedSubMessage(SubMessage):
     def __init__(self, text):
@@ -195,7 +199,7 @@ if __name__ == '__main__':
     print("Original message:", message.get_message_text(), "Permutation:", permutation)
     print("Expected encryption:", "Hallu Wurld!")
     print("Actual encryption:", message.apply_transpose(enc_dict))
-    enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
-    print("Decrypted message:", enc_message.decrypt_message())
+    # enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
+    # print("Decrypted message:", enc_message.decrypt_message())
      
     #TODO: WRITE YOUR TEST CASES HERE
