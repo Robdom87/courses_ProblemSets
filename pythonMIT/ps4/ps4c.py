@@ -167,7 +167,7 @@ class EncryptedSubMessage(SubMessage):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        self.text = text
+        SubMessage.__init__(self,text)
 
     def decrypt_message(self):
         '''
@@ -187,7 +187,32 @@ class EncryptedSubMessage(SubMessage):
         
         Hint: use your function from Part 4A
         '''
-        pass #delete this line and replace with your code here
+        permut_arr = get_permutations(VOWELS_LOWER)
+        # variable to hold max amount of valid words
+        max_words = 0
+        max_message = ""
+        # for each permutation possibility
+        for permut in permut_arr:
+             #apply use permute to build new tranpose dict
+            curr_tran_dict = self.build_transpose_dict(permut)
+            curr_message = self.apply_transpose(curr_tran_dict)
+            # varaible to hold current amount of valid words
+            curr_words = 0
+            # break decipered message str into an array of 
+            curr_words_arr = curr_message.split(" ")
+            # for each word in dec message arr, check if is word
+            for word in curr_words_arr:
+                #   if so add to variable
+                if is_word(self.valid_words, word):
+                    curr_words += 1
+            #check if total amount of current valid words is more than max
+            if curr_words > max_words:
+                #   if so subsstitu max amount with new max and save new message
+                max_words = curr_words
+                max_message = curr_message 
+        # return message for message with largest amount of valid words
+        return max_message
+
     
 
 if __name__ == '__main__':
@@ -199,7 +224,6 @@ if __name__ == '__main__':
     print("Original message:", message.get_message_text(), "Permutation:", permutation)
     print("Expected encryption:", "Hallu Wurld!")
     print("Actual encryption:", message.apply_transpose(enc_dict))
-    # enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
-    # print("Decrypted message:", enc_message.decrypt_message())
-     
-    #TODO: WRITE YOUR TEST CASES HERE
+    enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
+    print("Decrypted message:", enc_message.decrypt_message())
+
