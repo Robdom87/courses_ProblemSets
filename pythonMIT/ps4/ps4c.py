@@ -110,21 +110,37 @@ class SubMessage(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        lower_arr = []
-        upper_arr = []
-        lower_arr[:] = string.ascii_lowercase
-        upper_arr[:] = string.ascii_uppercase  
-        shift = 0
-        shift_dict = {}
-        def add_2_dict(arr, shift):
-            for i, let in enumerate(arr):
-                new_idx = int(shift) + i
-                if new_idx >= 26:
-                    new_idx = new_idx % 26
-                shift_dict[let]=arr[new_idx]
-        add_2_dict(lower_arr, shift)
-        add_2_dict(upper_arr, shift)
-        return shift_dict
+
+        tran_dict = {}  
+        # add all consonsants to tran_dict with their respective same letter in upper case and lowercase
+        def add_2_dict_con(con_str):
+            con_arr = []
+            con_arr[:] = con_str
+            for con in con_arr:
+                tran_dict[con]=con
+        add_2_dict_con(CONSONANTS_LOWER)
+        add_2_dict_con(CONSONANTS_UPPER)
+        # function to add vowels to tran_dict according to vow_perm
+        def add_2_dict_vow(vow_str, vow_perm):
+            # make base vowel string into arr
+            vow_arr = []
+            vow_arr[:] = vow_str
+            # make permutated vowel string into an arr
+            vow_p_arr = []
+            vow_p_arr[:]= vow_perm
+            # for each vowel in base arr
+            for i,vow in enumerate(vow_arr):
+                # pull current vowel from permutated vowel array
+                perm_vow = vow_p_arr[i]
+                # if base vowel array is in upper case, also make perm_vow array into upper case
+                if vow.isUpper():
+                    perm_vow = perm_vow.upper()
+                # add key pair for base vowel arr and perm vowel arr
+                tran_dict[vow]= perm_vow
+        add_2_dict_vow(VOWELS_LOWER, vowels_permutation)
+        add_2_dict_vow(VOWELS_UPPER, vowels_permutation)
+        
+        return tran_dict
     
     def apply_transpose(self, transpose_dict):
         '''
