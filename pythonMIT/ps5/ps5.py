@@ -55,6 +55,21 @@ def process(url):
 # Problem 1
 
 # TODO: NewsStory
+class NewsStory(object):
+    def __init__(self, guid, title, description, link, pubdate):
+        self.guid = guid
+        self.title = title
+        self.description = description
+        self.link = link
+        self.pubdate = pubdate
+# ●globally unique identifier (GUID) - a string
+# ●title - a string
+# ●description - a string
+# ●link to more content - a string
+# ●pubdate - a datetime
+
+# constructor that takes ( guid, title, description, link, pubdate ) as argumentsand stores them appropriately. NewsStory also needs to contain the following methods:●get_guid(self)●get_title(self)●get_description(self)●get_link(self)●get_pubdate(self)
+
 
 
 #======================
