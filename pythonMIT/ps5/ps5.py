@@ -62,15 +62,16 @@ class NewsStory(object):
         self.description = description
         self.link = link
         self.pubdate = pubdate
-# ●globally unique identifier (GUID) - a string
-# ●title - a string
-# ●description - a string
-# ●link to more content - a string
-# ●pubdate - a datetime
-
-# constructor that takes ( guid, title, description, link, pubdate ) as argumentsand stores them appropriately. NewsStory also needs to contain the following methods:●get_guid(self)●get_title(self)●get_description(self)●get_link(self)●get_pubdate(self)
-
-
+    def get_guid(self):
+        return self.guid
+    def get_title(self):
+        return self.title
+    def get_description(self):
+        return self.description
+    def get_link(self):
+        return self.link
+    def get_pubdate(self):
+        return self.pubdate
 
 #======================
 # Triggers
