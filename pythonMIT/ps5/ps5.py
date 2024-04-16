@@ -90,6 +90,8 @@ class Trigger(object):
 
 # Problem 2
 # TODO: PhraseTrigger
+    def PhraseTrigger(self):
+        
 
 # Problem 3
 # TODO: TitleTrigger
