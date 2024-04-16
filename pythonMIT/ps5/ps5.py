@@ -91,10 +91,13 @@ class Trigger(object):
 # Problem 2
 # TODO: PhraseTrigger
     def PhraseTrigger(self):
-        
+        pass
+
 
 # Problem 3
 # TODO: TitleTrigger
+    def TitleTrigger(self):
+        pass
 
 # Problem 4
 # TODO: DescriptionTrigger
