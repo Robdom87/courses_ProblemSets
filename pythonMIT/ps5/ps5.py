@@ -90,8 +90,22 @@ class Trigger(object):
 
 # Problem 2
 # TODO: PhraseTrigger
-    def PhraseTrigger(self):
-        pass
+    def PhraseTrigger(Trigger):
+        def __init__(self, story, phrase):
+
+            Trigger.__init__(self,story)
+            self.phrase = phrase
+        def get_phrase(self):
+            return self.phrase
+        def set_phrase(self, phrase):
+            self.phrase = phrase
+        def is_phrase_in(self, phrase):
+            """
+            which takes in one string argument text. It returns True if the whole phrasephrase is present in text, False otherwise, as described in the above examples.
+            """
+            self.set_phrase(phrase)
+            #continue on is phrase in implementation
+        
 
 
 # Problem 3
