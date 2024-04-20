@@ -89,75 +89,79 @@ class Trigger(object):
 # PHRASE TRIGGERS
 
 # Problem 2
-# TODO: PhraseTrigger
-    def PhraseTrigger(Trigger):
-        def __init__(self, story, phrase):
-            Trigger.__init__(self,story)
-            self.phrase = phrase
-            self.story = story
-        def get_phrase(self):
-            return self.phrase
-        def set_phrase(self, phrase):
-            self.phrase = phrase
-        def get_story(self):
-            return self.story
-        def is_phrase_in(self, phrase):
-            """
-            which takes in one string argument text. It returns True if the whole phrasephrase is present in text, False otherwise, as described in the above examples.
-            """
-            self.set_phrase(phrase)
-            #continue on is phrase in implementation
-            phr = self.get_phrase()
-            # pull story
-            story = self.get_story()
-            # make story and phrase be lowercase and no punctuation
-            def replacePunctLower(str):
-                arr = []
-                arr[:] = str.lower()
-                punct = "!@#$%^&*()-_+={}[]|\:;'<>?,./\""
-                for i, char in enumerate(arr):
-                    if char in punct:
-                        arr[i] = " "
-                return "".join(arr)
-            phrPL = replacePunctLower(phr)
-            storyPL = replacePunctLower(story)
+#PhraseTrigger
+class PhraseTrigger(Trigger):
+    def __init__(self, phrase):
+        Trigger.__init__(self)
+        self.phrase = phrase
+    def get_phrase(self):
+        return self.phrase
+    def is_phrase_in(self, text):
+        """
+        which takes in one string argument text. It returns True if the whole phrasephrase is present in text, False otherwise, as described in the above examples.
+        """
+        phr = self.get_phrase()
+        # pull story
+        def replacePunctLower(str):
+            arr = []
+            arr[:] = str.lower()
+            punct = "!@#$%^&*()-_+={}[]|\:;'<>?,./\""
+            for i, char in enumerate(arr):
+                if char in punct:
+                    arr[i] = " "
+            return "".join(arr)
+        phrPL = replacePunctLower(phr)
+        # print(phr, phrPL)
+        textPL = replacePunctLower(text)
+
+
             # edge case if punctuation between words and no spaces should still read as space
                 #change puctuation to " "
             # seperate story and phrase into words arr
-            phrArr =  phrPL.split(" ")
-            storyArr =  storyPL.split(" ")           
+
+        def splitReplaceEmpty(strPL):
+            strArr = strPL.split(" ")
+            return list(filter(lambda x: x != "", strArr))
+        phrArr =  splitReplaceEmpty(phrPL)
+        textArr = splitReplaceEmpty(textPL)
+        print(text, textPL, textArr)           
             # then use for loop to go thru all words story 
-            phrIdx = 0
-            for s_word in storyArr:
-                p_word = phrArr[phrIdx]
+        phrIdx = 0
+        for t_word in textArr:
+            p_word = phrArr[phrIdx]
                 # check if word matches first word in phrase
-                if s_word == p_word:
+            if t_word == p_word:
                 # if so, increase prhase word indexto check if next word matches second word in phrase
-                    phrIdx += 1
+                phrIdx += 1
                     # do until at the end of prhase array
-                    if phrIdx > len(phrArr)-1:
+                if phrIdx > len(phrArr)-1:
                     # if so return true
-                        return True
+                    return True
                 # if word does not match
-                else:
+            else:
                 #   reduce index back to 0
-                    phrIdx = 0
+                phrIdx = 0
                 #   and check if first matches
                 #   if so incease idex like above
-                    p_word = phrArr[phrIdx]
-                    if s_word == p_word:
-                        phrIdx += 1
+                p_word = phrArr[phrIdx]
+                if t_word == p_word:
+                    phrIdx += 1
 
             # if match return true
             # else return false
-            return False
+        return False
         
 
 
 # Problem 3
 # TODO: TitleTrigger
-    def TitleTrigger(self):
-        pass
+class TitleTrigger(PhraseTrigger):
+    def __init__(self, phrase):
+        PhraseTrigger.__init__(self, phrase)
+    def evaluate(self, story):
+        return self.is_phrase_in(story.get_title())
+        
+
 
 # Problem 4
 # TODO: DescriptionTrigger
