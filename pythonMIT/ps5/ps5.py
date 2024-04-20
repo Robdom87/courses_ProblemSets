@@ -92,19 +92,65 @@ class Trigger(object):
 # TODO: PhraseTrigger
     def PhraseTrigger(Trigger):
         def __init__(self, story, phrase):
-
             Trigger.__init__(self,story)
             self.phrase = phrase
+            self.story = story
         def get_phrase(self):
             return self.phrase
         def set_phrase(self, phrase):
             self.phrase = phrase
+        def get_story(self):
+            return self.story
         def is_phrase_in(self, phrase):
             """
             which takes in one string argument text. It returns True if the whole phrasephrase is present in text, False otherwise, as described in the above examples.
             """
             self.set_phrase(phrase)
             #continue on is phrase in implementation
+            phr = self.get_phrase()
+            # pull story
+            story = self.get_story()
+            # make story and phrase be lowercase and no punctuation
+            def replacePunctLower(str):
+                arr = []
+                arr[:] = str.lower()
+                punct = "!@#$%^&*()-_+={}[]|\:;'<>?,./\""
+                for i, char in enumerate(arr):
+                    if char in punct:
+                        arr[i] = " "
+                return "".join(arr)
+            phrPL = replacePunctLower(phr)
+            storyPL = replacePunctLower(story)
+            # edge case if punctuation between words and no spaces should still read as space
+                #change puctuation to " "
+            # seperate story and phrase into words arr
+            phrArr =  phrPL.split(" ")
+            storyArr =  storyPL.split(" ")           
+            # then use for loop to go thru all words story 
+            phrIdx = 0
+            for s_word in storyArr:
+                p_word = phrArr[phrIdx]
+                # check if word matches first word in phrase
+                if s_word == p_word:
+                # if so, increase prhase word indexto check if next word matches second word in phrase
+                    phrIdx += 1
+                    # do until at the end of prhase array
+                    if phrIdx > len(phrArr)-1:
+                    # if so return true
+                        return True
+                # if word does not match
+                else:
+                #   reduce index back to 0
+                    phrIdx = 0
+                #   and check if first matches
+                #   if so incease idex like above
+                    p_word = phrArr[phrIdx]
+                    if s_word == p_word:
+                        phrIdx += 1
+
+            # if match return true
+            # else return false
+            return False
         
 
 
