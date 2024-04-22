@@ -124,7 +124,7 @@ class PhraseTrigger(Trigger):
             return list(filter(lambda x: x != "", strArr))
         phrArr =  splitReplaceEmpty(phrPL)
         textArr = splitReplaceEmpty(textPL)
-        print(text, textPL, textArr)           
+        # print(text, textPL, textArr)           
             # then use for loop to go thru all words story 
         phrIdx = 0
         for t_word in textArr:
@@ -177,6 +177,12 @@ class DescriptionTrigger(PhraseTrigger):
 
 # Problem 5
 # TODO: TimeTrigger
+class TimeTrigger(Trigger):
+    def __init__(self, time):
+        Trigger.__init__(self)
+        self.time = datetime.strptime(time, "%d %b %Y %H:%M:%S")
+
+
 # Constructor:
 #        Input: Time has to be in EST and in the format of "%d %b %Y %H:%M:%S".
 #        Convert time from string to a datetime before saving it as an attribute.
