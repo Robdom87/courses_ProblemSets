@@ -189,6 +189,28 @@ class TimeTrigger(Trigger):
 
 # Problem 6
 # TODO: BeforeTrigger and AfterTrigger
+class BeforeTrigger(TimeTrigger):
+    def __init__(self, time):
+        TimeTrigger.__init__(self, time)
+    def get_time(self):
+        return self.time
+    def evaluate(self, story):
+        trigger_time = self.get_time()
+        if story.get_pubdate().tzinfo != None:
+            trigger_time = trigger_time.replace(tzinfo=pytz.timezone("EST"))
+        return True if story.get_pubdate() < trigger_time else False
+        
+class AfterTrigger(TimeTrigger):
+    def __init__(self, time):
+        TimeTrigger.__init__(self, time)
+    def get_time(self):
+        return self.time
+    def evaluate(self, story):
+        trigger_time = self.get_time()
+        if story.get_pubdate().tzinfo != None:
+            trigger_time = trigger_time.replace(tzinfo=pytz.timezone("EST"))
+        return True if story.get_pubdate() > trigger_time else False
+
 
 
 # COMPOSITE TRIGGERS
