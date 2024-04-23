@@ -227,9 +227,24 @@ class NotTrigger(Trigger):
 
 # Problem 8
 # TODO: AndTrigger
+class AndTrigger(Trigger):
+    def __init__(self, trig1, trig2):
+        Trigger.__init__(self)
+        self.trig1 = trig1
+        self.trig2 = trig2
+    def evaluate(self, story):
+        return self.trig1.evaluate(story) and self.trig2.evaluate(story)
 
 # Problem 9
 # TODO: OrTrigger
+class OrTrigger(Trigger):
+    def __init__(self, trig1, trig2):
+        Trigger.__init__(self)
+        self.trig1 = trig1
+        self.trig2 = trig2
+    def evaluate(self, story):
+        return self.trig1.evaluate(story) or self.trig2.evaluate(story)
+
 
 
 #======================
