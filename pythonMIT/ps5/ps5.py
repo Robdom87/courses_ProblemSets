@@ -217,6 +217,13 @@ class AfterTrigger(TimeTrigger):
 
 # Problem 7
 # TODO: NotTrigger
+class NotTrigger(Trigger):
+    def __init__(self, trig):
+        Trigger.__init__(self)
+        self.trig = trig
+    def evaluate(self, story):
+        return not self.trig.evaluate(story)
+
 
 # Problem 8
 # TODO: AndTrigger
