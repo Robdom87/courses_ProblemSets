@@ -29,11 +29,15 @@ def process(url):
     feed = feedparser.parse(url)
     entries = feed.entries
     ret = []
+
     for entry in entries:
         guid = entry.guid
         title = translate_html(entry.title)
         link = entry.link
-        description = translate_html(entry.description)
+        if url != "http://news.google.com/news?output=rss":
+            description = translate_html(entry.title_detail.value)
+        else:
+            description = translate_html(entry.description)
         pubdate = translate_html(entry.published)
 
         try:
@@ -342,9 +346,9 @@ def main_thread(master):
             # Get stories from Google's Top Stories RSS news feed
             stories = process("http://news.google.com/news?output=rss")
 
-            # Get stories from Yahoo's Top Stories RSS news feed
-            stories.extend(process("http://news.yahoo.com/rss/topstories"))
 
+            # # Get stories from Yahoo's Top Stories RSS news feed
+            # stories.extend(process("http://news.yahoo.com/rss/topstories"))
             stories = filter_stories(stories, triggerlist)
 
             list(map(get_cont, stories))
@@ -353,6 +357,7 @@ def main_thread(master):
 
             print("Sleeping...")
             time.sleep(SLEEPTIME)
+            print("sleep?")
 
     except Exception as e:
         print(e)
