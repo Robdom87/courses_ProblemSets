@@ -226,6 +226,7 @@ class NotTrigger(Trigger):
         Trigger.__init__(self)
         self.trig = trig
     def evaluate(self, story):
+        print('not')
         return not self.trig.evaluate(story)
 
 
@@ -237,6 +238,7 @@ class AndTrigger(Trigger):
         self.trig1 = trig1
         self.trig2 = trig2
     def evaluate(self, story):
+        print("and")
         return self.trig1.evaluate(story) and self.trig2.evaluate(story)
 
 # Problem 9
@@ -247,6 +249,7 @@ class OrTrigger(Trigger):
         self.trig1 = trig1
         self.trig2 = trig2
     def evaluate(self, story):
+        print('or')
         return self.trig1.evaluate(story) or self.trig2.evaluate(story)
 
 
@@ -268,6 +271,8 @@ def filter_stories(stories, triggerlist):
     filtered_stories = []
     for trigger in triggerlist:
         for story in stories:
+            # print(type(trigger))
+            print("filtered")
             if trigger.evaluate(story) and story not in filtered_stories:
                 filtered_stories.append(story)
     return filtered_stories
@@ -298,7 +303,53 @@ def read_trigger_config(filename):
     # line is the list of lines that you need to parse and for which you need
     # to build triggers
 
-    print(lines) # for now, print it so you see what it contains!
+    # print(lines) # for now, print it so you see what it contains!
+    trigger_list = []
+    trigger_dict = {}
+    # trigger_def = {
+    #     "TITLE" : lambda x: TitleTrigger(x),
+    #     # "DESCRIPTION" : one phrase,
+    #     # "AFTER" : one correctly formatted time string,
+    #     # "BEFORE" : one correctly formatted time string,
+    #     # "NOT" : the name of the trigger that will be NOT'd,
+    #     # "AND" : the names of the two triggers that will be AND'd.,
+    #     # "OR" : the names of the two triggers that will be OR'd.,
+    # }
+    def add_trigger(l):
+        for i, arg in enumerate(l):
+            # if add in first word, then make add process
+            if i != 0:
+                #add argument triggers to trigger list  
+                trigger_list.append(trigger_dict[arg])
+    def create_trigger(l):
+        trig_name = l[0]
+        trig_type = l[1]
+        trig_arg = l[2]
+        trig_args = l[2:]
+        if trig_type == "TITLE":
+            trigger_dict[trig_name] = TitleTrigger(trig_arg)
+        elif trig_type == "DESCRIPTION":
+            trigger_dict[trig_name] = DescriptionTrigger(trig_arg)
+        elif trig_type == "AFTER":
+            trigger_dict[trig_name] = BeforeTrigger(trig_arg)
+        elif trig_type == "BEFORE": 
+            trigger_dict[trig_name] = AfterTrigger(trig_arg)
+        elif trig_type == "NOT":    
+            trigger_dict[trig_name] = NotTrigger(trigger_dict[trig_arg])
+        elif trig_type == "AND": 
+            trigger_dict[trig_name] = AndTrigger(trigger_dict[trig_args[0]], trigger_dict[trig_args[1]])
+        elif trig_type == "OR":  
+            trigger_dict[trig_name] = OrTrigger(trigger_dict[trig_args[0]], trigger_dict[trig_args[1]])  
+
+    # for each line
+    for line in lines:
+        l_args = line.split(',')
+        if l_args[0] == "ADD":
+            add_trigger(l_args)
+        else:
+            create_trigger(l_args)
+
+    return trigger_list
 
 
 
@@ -308,15 +359,17 @@ def main_thread(master):
     # A sample trigger list - you might need to change the phrases to correspond
     # to what is currently in the news
     try:
-        t1 = TitleTrigger("election")
-        t2 = DescriptionTrigger("Trump")
-        t3 = DescriptionTrigger("Clinton")
-        t4 = AndTrigger(t2, t3)
-        triggerlist = [t1, t4]
+        # t1 = TitleTrigger("election")
+        # t2 = DescriptionTrigger("Trump")
+        # t3 = DescriptionTrigger("Clinton")
+        # t4 = AndTrigger(t2, t3)
+        # triggerlist = [t1, t4]
 
         # Problem 11
         # TODO: After implementing read_trigger_config, uncomment this line 
-        # triggerlist = read_trigger_config('triggers.txt')
+        triggerlist = read_trigger_config('triggers.txt')
+        # print(triggerlist)
+        # return
         
         # HELPER CODE - you don't need to understand this!
         # Draws the popup window that displays the filtered stories
