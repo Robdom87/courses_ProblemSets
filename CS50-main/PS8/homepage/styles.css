@@ -1,0 +1,40 @@
+body {
+    background-color: #e3e5e8
+}
+
+
+.header {
+    background-color: #7a7979;
+    color: #fff;
+    margin-bottom: 2rem;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.sub_header {
+    color: #000000;
+    margin-bottom: 1rem;
+    padding: .5rem .5rem;
+    text-align: center;
+}
+
+.Intro {
+
+        color: #000000;
+        margin-bottom: 2rem;
+        padding: .5rem 2rem;
+        text-align: center;
+}
+
+.Hyper_Link {
+
+        color: #000000;
+        text-align: center;
+        width: 100%;
+        padding: 15px 32px;
+        border: none;
+        font-size: 32px;
+        border-color:;
+        border-width:;
+
+}

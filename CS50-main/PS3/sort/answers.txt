@@ -1,0 +1,11 @@
+sort1 uses: Bubble
+
+How do you know?: The method is bubble because all sorted info is bubbling up to the right side.
+
+sort2 uses: Merge
+
+How do you know?: The method is bubble because the sorting occurs as smaller array are merges into larger ones.
+
+sort3 uses: Selection
+
+How do you know?: Sort thru select an item and push it over to the sorted array.
