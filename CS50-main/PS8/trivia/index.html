@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+
+    </head>
+    <script>
+        // run script once dom is loade
+        document.addEventListener('DOMContentLoaded', function() {
+
+        let correct = document.querySelector('.correct'); //.correct is used because its a class not an id
+        correct.addEventListener('click', function(){     // add event listener to class correct to hear for click where in which the below function is excectued
+            correct.style.backgroundColor = 'green' ;     //change the background color of the class to green , standardized way to let them know which color?
+            document.querySelector('#feedback1').innerHTML = 'Correct!'; //go to the document, find the id feedback with the query selector and unpdate inside that line for the following text
+        });
+
+        let incorrect = document.querySelectorAll('.incorrect'); //.correct is used because its a class not an id, use All because multiple
+        for (let i=0; i < incorrect.length; i++){              //normal forloop ut incorrrects length is throwing me off
+        incorrect[i].addEventListener('click', function(){     // add event listener to class correct to hear for click where in which the below function is excectued
+            incorrect[i].style.backgroundColor = 'red' ;     //change the background color of the class to green , standardized way to let them know which color?
+            document.querySelector('#feedback1').innerHTML = 'Incorrect!'; //go to the document, find the id feedback with the query selector and unpdate inside that line for the following text
+        });
+    }
+
+        //check free response submission
+        document.querySelector('#check').addEventListener('click', function() { //check if check button is clicked if so run the below
+            let input =  document.querySelector('input'); //basically telling JS that hey input is going to be th input used in html
+            if (input.value === 'China'){                  //=== used for text?, also need to use input.value to look at what has been types
+                input.style.backgroundColor = 'green' ;     //change the background color of the class to green , standardized way to let them know which color?
+                document.querySelector('#feedback2').innerHTML = 'Correct!'
+            } else {
+                input.style.backgroundColor = 'red' ;     //change the background color of the class to green , standardized way to let them know which color?
+                document.querySelector('#feedback2').innerHTML = 'Inorrect!'
+            }
+        });
+
+
+    });
+
+
+    </script>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+            <h3>What was the first state? </h3>
+            <button class="incorrect" >Arizona</button>
+            <button class="correct" >Delaware</button>
+            <button class="incorrect" >New York</button>
+            <button class="incorrect" >Virginia</button>
+
+            <p id="feedback1"></p> <!-- empty paragraph to provide feedback -->
+
+                <!-- TODO: Add multiple choice question here -->
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+            <h3>Which country invented tea? </h3>
+            <input type="text"></input>
+            <button id="check">Check Answer</button>
+
+            <p id="feedback2"></p>
+
+                <!-- TODO: Add free response question here -->
+            </div>
+        </div>
+
+    </body>
+</html>
