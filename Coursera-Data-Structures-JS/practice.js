@@ -1,3 +1,18 @@
+let addNode = (node, nodeToAdd) => {
+    node.prev.next = nodeToAdd
+    nodeToAdd.prev = node.prev
+    node.prev = nodeToAdd
+    nodeToAdd.next = node
+}
+
+let deleteNode = node => {
+    let prevNode = node.prev;
+    let nextNode = node.next;
+    prevNode.next = nextNode;
+    nextNode.prev = prevNode;
+
+
+
 
 
 // var reverseWords = function(s) {

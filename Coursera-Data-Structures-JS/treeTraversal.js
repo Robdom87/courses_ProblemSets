@@ -14,5 +14,11 @@ how to implment , use a queue
 
 
 depth first seach
-go down before seeing sibling nodes
-`
+go down before seeing sibling nodes`
+
+function dfs(node){
+    if (node === null){return;}
+    dfs(node.left);
+    dfs(node.right);
+    return;
+}
